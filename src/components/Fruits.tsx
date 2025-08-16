@@ -9,9 +9,10 @@ function Fruits() {
     "nanas",
   ]);
 
+  const [newFruit, setNewFruit] = useState("");
   const addFruit = () => {
-    const newFruit = "alpukat";
     setFruits([newFruit, ...fruits]);
+    setNewFruit("");
   };
 
   const deleteFruit = (idFruit: number) => {
@@ -49,6 +50,13 @@ function Fruits() {
           </li>
         ))}
       </ul>
+      <br />
+      <input
+        type="text"
+        className="form-control"
+        value={newFruit}
+        onChange={(e) => setNewFruit(e.target.value)}
+      />
       <br />
       <button type="button" className="btn btn-primary" onClick={addFruit}>
         add fruit
