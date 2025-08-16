@@ -1,7 +1,10 @@
+import { useState } from "react";
+
 function Counter() {
-  let angka = 0;
+  const [angka, setAngka] = useState(0);
+
   const tambah = () => {
-    angka = angka + 1;
+    setAngka((angka) => angka + 1);
     console.log(angka);
   };
   return (
