@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Counter() {
   const [angka, setAngka] = useState(0);
 
+  useEffect(() => {
+    setAngka(5);
+  }, []);
+
+  useEffect(() => {
+    console.log(angka);
+  }, [angka]);
+
   const tambah = () => {
     setAngka((angka) => angka + 1);
-    console.log(angka);
   };
   return (
     <>
