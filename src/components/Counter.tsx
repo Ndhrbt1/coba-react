@@ -17,7 +17,9 @@ function Counter() {
   return (
     <>
       <h1>{angka}</h1>
-      <button onClick={tambah}>tambah</button>
+      <button className="btn btn-primary" onClick={tambah}>
+        tambah
+      </button>
     </>
   );
 }

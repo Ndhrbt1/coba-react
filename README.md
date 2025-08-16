@@ -16,6 +16,16 @@ npm install
 ```bash
 npm run dev
 ```
+## install bootstrap
+
+```bash
+npm i bootstrap
+```
+## import compiled css 
+
+```bash
+import 'bootstrap/dist/css/bootstrap.min.css';
+```
 
 
 
