@@ -14,6 +14,7 @@ function Counter() {
   const tambah = () => {
     setAngka((angka) => angka + 1);
   };
+
   return (
     <>
       <h1>{angka}</h1>
