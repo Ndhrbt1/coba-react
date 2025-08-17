@@ -1,0 +1,15 @@
+[
+
+    {"id": "1", "name": "bag", "price": 10000},
+
+    {"id": "2", "name": "shoes", "price": 20000},
+
+    {"id": "3", "name": "belt", "price": 30000},
+
+    {"id": "4", "name": "hat", "price": 40000},
+
+    {"id": "5", "name": "glasses", "price": 50000},
+
+    {"id": "6", "name": "mirror", "price": 60000}
+
+]
