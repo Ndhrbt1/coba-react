@@ -22,6 +22,10 @@ function Products() {
     setNewProduct("");
   };
 
+  const deleteProduct = (idProduct: string) => {
+    setProducts(products.filter((value) => value.id != idProduct));
+  };
+
   return (
     <>
       <h1>List of Product</h1>
@@ -29,6 +33,13 @@ function Products() {
         {products.map((value) => (
           <li key={value.id} className="list-group-item">
             {value.id} {value.name} {value.price}
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => deleteProduct(value.id)}
+            >
+              del
+            </button>
           </li>
         ))}
       </ul>
