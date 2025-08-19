@@ -32,7 +32,7 @@ function ProductList() {
       });
 
       if (!response.ok) {
-        const errorData = response.json();
+        const errorData = await response.json();
         console.error(errorData);
         return;
       }
@@ -62,22 +62,44 @@ function ProductList() {
     }
   };
 
-  // const [changeProduct, setChangeProduct] = useState("");
-  // const updateProduct = (idProduct: string) => {
-  //   setProducts(
-  //     products.map((value) =>
-  //       idProduct == value.id
-  //         ? {
-  //             id: value.id,
-  //             name: changeProduct,
-  //             price: value.price,
-  //           }
-  //         : value
-  //     )
-  //   );
+  const [changeProduct, setChangeProduct] = useState("");
+  const updateProduct = async (idProduct: number | undefined) => {
+    const changeObjProduct = {
+      name: changeProduct,
+    };
 
-  //   setChangeProduct("");
-  // };
+    try {
+      const response = await fetch(
+        `https://gorest.co.in/public/v2/users/${idProduct}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer be43c46d7671a02d361a3fb75322aca606d37288dc23be7f102e255ad5aef407",
+          },
+          body: JSON.stringify(changeObjProduct),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error(errorData);
+        return;
+      }
+
+      const data = await response.json();
+      console.log(`ini data ${data["name"]}`);
+
+      setProducts(
+        products.map((value) => (idProduct === value.id ? data : value))
+      );
+
+      setChangeProduct("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -93,13 +115,13 @@ function ProductList() {
             >
               del
             </button>{" "}
-            {/* <button
+            <button
               type="button"
               className="btn btn-primary"
               onClick={() => updateProduct(value.id)}
             >
               upd
-            </button> */}
+            </button>
           </li>
         ))}
       </ul>
@@ -116,12 +138,12 @@ function ProductList() {
       </button>
       <br />
       <br />
-      {/* <input
+      <input
         type="text"
         className="form-control"
         value={changeProduct}
         onChange={(e) => setChangeProduct(e.target.value)}
-      /> */}
+      />
     </>
   );
 }
