@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductState from "../hooks/ProductState";
-// import type { Product } from "../models/product";
+import type { Product } from "../models/product";
 
 function ProductList() {
   useEffect(() => {
@@ -8,19 +8,42 @@ function ProductList() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { products, fetchData } = ProductState();
+  const { products, fetchData, setProducts } = ProductState();
 
   const [newProduct, setNewProduct] = useState("");
 
-  // const addProduct = () => {
-  //   const newObjProduct: Product = {
-  //     id: crypto.randomUUID().slice(0, 5),
-  //     name: newProduct,
-  //     price: Math.floor(Math.random() * 10) + 10000,
-  //   };
-  //   setProducts([newObjProduct, ...products]);
-  //   setNewProduct("");
-  // };
+  const addProduct = async () => {
+    const newObjProduct: Product = {
+      name: newProduct,
+      email: `${newProduct.toLowerCase()}@example.com`,
+      gender: "female",
+      status: "active",
+    };
+
+    try {
+      const response = await fetch("https://gorest.co.in/public/v2/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer be43c46d7671a02d361a3fb75322aca606d37288dc23be7f102e255ad5aef407",
+        },
+        body: JSON.stringify(newObjProduct),
+      });
+
+      if (!response.ok) {
+        const errorData = response.json();
+        console.error(errorData);
+        return;
+      }
+
+      const data = await response.json();
+      setProducts([data, ...products]);
+      setNewProduct("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // const deleteProduct = (idProduct: string) => {
   //   setProducts(products.filter((value) => value.id != idProduct));
@@ -75,12 +98,12 @@ function ProductList() {
         onChange={(e) => setNewProduct(e.target.value)}
       />
       <br />
-      {/* <button type="button" className="btn btn-primary" onClick={addProduct}>
+      <button type="button" className="btn btn-primary" onClick={addProduct}>
         add product
       </button>
       <br />
       <br />
-      <input
+      {/* <input
         type="text"
         className="form-control"
         value={changeProduct}
