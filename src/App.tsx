@@ -1,10 +1,9 @@
-import Products from "./components/Products";
+import ProductList from "./components/ProductList";
 
 function App() {
   return (
     <>
-      <h1>Belajar React</h1>
-      <Products />
+      <ProductList />
     </>
   );
 }
