@@ -45,9 +45,22 @@ function ProductList() {
     }
   };
 
-  // const deleteProduct = (idProduct: string) => {
-  //   setProducts(products.filter((value) => value.id != idProduct));
-  // };
+  const deleteProduct = async (idProduct: number | undefined) => {
+    try {
+      await fetch(`https://gorest.co.in/public/v2/users/${idProduct}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer be43c46d7671a02d361a3fb75322aca606d37288dc23be7f102e255ad5aef407",
+        },
+      });
+
+      setProducts(products.filter((value) => value.id != idProduct));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // const [changeProduct, setChangeProduct] = useState("");
   // const updateProduct = (idProduct: string) => {
@@ -72,15 +85,15 @@ function ProductList() {
       <ul className="list-group">
         {products.map((value) => (
           <li key={value.id} className="list-group-item">
-            {value.id} {value.name} {value.email}
-            {/* <button
+            {value.id} {value.name} {value.email}{" "}
+            <button
               type="button"
               className="btn btn-primary"
               onClick={() => deleteProduct(value.id)}
             >
               del
             </button>{" "}
-            <button
+            {/* <button
               type="button"
               className="btn btn-primary"
               onClick={() => updateProduct(value.id)}
